@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>გილოცავთ დედის დღეს!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #fce4ec 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            color: #d81b60;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            z-index: 10;
+        }
+
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.8s ease-in-out; }
+
+        h1 { font-size: 1.5rem; line-height: 1.5; }
+        p { font-size: 1.1rem; line-height: 1.6; }
+
+        button {
+            background-color: #ff80ab;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #f06292;
+            transform: scale(1.05);
+        }
+
+        #no-btn {
+            background-color: #f8bbd0;
+            color: #880e4f;
+        }
+
+        /* გულების წვიმის სტილი */
+        .heart {
+            position: absolute;
+            color: #ff4081;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="step1" class="step active">
+            <h1>ქალბატონო თინათინ დედიკო, გილოცავთ 3 მარტს ❤️</h1>
+            <button onclick="nextStep(2)">დააჭირე აქ</button>
+        </div>
+
+        <div id="step2" class="step">
+            <p>გილოცავთ დედის დღეს! ჩვენთვის შენ ხარ სითბო, ძალა და უსაზღვრო სიყვარული. შენი ღიმი გვათბობს, შენი ზრუნვა გვაძლიერებს და შენი სიყვარული გვასწავლის როგორ ვიყოთ უკეთესი ადამიანები ❤️</p>
+            <h3>მზად ხარ აგვიტანო მთელი ცხოვრება?</h3>
+            <button onclick="nextStep(3)">კი</button>
+            <button id="no-btn" onmouseover="moveButton()">არა</button>
+        </div>
+
+        <div id="step3" class="step">
+            <h2>უსაზღვრო სიყვარულით -</h2>
+            <p>შენი შვილები ანნა და ლილე, ასევე შემოშვილებული შოთა ❤️❤️❤️</p>
+        </div>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        function rainHearts() {
+            for(let i = 0; i < 30; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+        }
+
+        function nextStep(stepNumber) {
+            rainHearts();
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        // სახალისო ფუნქცია "არა" ღილაკისთვის
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+    </script>
+</body>
+</html>
